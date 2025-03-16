@@ -1,0 +1,109 @@
+namespace KonnyuGyakorlas
+{
+
+    public interface IJarmu
+    {
+        void Menet();
+        void Megall();
+    }
+
+    public class Kamion : IJarmu
+    {
+        public int Gyorsasag;
+        public int Maxsebesseg;
+
+        public Kamion(int gyorsasag, int maxsebesseg)
+        {
+            Gyorsasag = gyorsasag;
+            Maxsebesseg = maxsebesseg;
+        }
+
+        public void Menet()
+        {
+            Console.WriteLine($"Az autó megy {Gyorsasag}-al és a max sebessége: {Maxsebesseg}");
+        }
+
+        public void Megall()
+        {
+            Console.WriteLine($"Az autó megállt {Gyorsasag} a gyorsasága és a max sebessége: {Maxsebesseg}");
+        }
+    }
+
+    public abstract class Rendeles
+    {
+        public int Osszeg;
+        public string Varos;
+
+        public Rendeles(int osszeg, string varos)
+        {
+            Osszeg = osszeg;
+            Varos = varos;
+        }
+
+        public abstract void Uzenet();
+    }
+
+    public class Konyveles : Rendeles
+    {
+        public Konyveles(int osszeg, string varos) : base(osszeg, varos)
+            { }
+
+        public override void Uzenet()
+        {
+            Console.WriteLine("Elkönyvelve");
+        }
+    }
+
+    public class Auto
+    {
+        public int Evjarat;
+        public string Marka;
+
+        public Auto(int evjarat, string marka)
+        {
+            this.Evjarat = evjarat;
+            this.Marka = marka;
+        }
+
+        public void Adatok()
+        {
+            Console.WriteLine(Evjarat + " évjáratú " + Marka + " márkájú autó elindult");
+        }
+    }
+
+    public class Repulo : Auto
+    {
+        public int Magassag;
+
+        public Repulo(int evjarat, string marka, int magassag) 
+            : base(evjarat, marka)
+        {
+            this.Magassag = magassag;
+        }
+
+        public void Felszallas()
+        {
+            Console.WriteLine("Felszállt a " + Marka + " repülője " + Magassag + " magasságban " + Evjarat);
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, World!");
+            Auto auto1 = new Auto(1974, "Chevrolet");
+            auto1.Adatok();
+            Repulo repulo1 = new Repulo(2022, "SpaceX", 10000);
+            repulo1.Adatok();
+
+            Konyveles konyveles1 = new Konyveles(10000, "Derecske");
+            konyveles1.Uzenet();
+
+            Kamion kamion1 = new Kamion(100, 50);
+            kamion1.Menet();
+
+            Kamion kamion2 = new Kamion(0, 50);
+            kamion2.Megall();
+        }
+    }
+}
